@@ -4,8 +4,8 @@ import BrandTwo from '../../images/brand/brand-02.svg';
 import BrandThree from '../../images/brand/brand-03.svg';
 import BrandFour from '../../images/brand/brand-04.svg';
 import BrandFive from '../../images/brand/brand-05.svg';
-import {getFuelStation,getCities}  from '../../database/db'
-import useStore from '../../database/statemanagement'
+import { getFuelStation, getCities } from '../../database/db';
+import useStore from '../../database/statemanagement';
 import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState } from 'react';
 
 const brandData: BRAND[] = [
@@ -52,63 +52,72 @@ const brandData: BRAND[] = [
 ];
 
 const TableOne = () => {
-  const [fuelStationDet,setFuelStationDet] = useStore((state:any)=>[state.fuelStationDetail,state.setFuelStationDetail]);
-  useEffect(()=>{
-    getFuelStation().then((data:any)=>{
-      Promise.all(data).then((value:any)=>{
+  const [fuelStationDet, setFuelStationDet] = useStore((state: any) => [state.fuelStationDetail, state.setFuelStationDetail]);
+
+  useEffect(() => {
+    getFuelStation().then((data: any) => {
+      Promise.all(data).then((value: any) => {
         setFuelStationDet(value);
-      })
-    })
-  },[])
+      });
+    });
+  }, []);
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-        Transaction
-      </h4>
+      <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">Transaction</h4>
 
       <div className="flex flex-col">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-3">
           <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Fuel Station
-            </h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Fuel Station</h5>
           </div>
-          
+
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Total Orders
-            </h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Total Orders</h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Total Amount
-            </h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Total Amount</h5>
           </div>
         </div>
 
-        {fuelStationDet.map((brand: { name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; totalOrders: any; amount: string | number | bigint; }, key: Key | null | undefined) => (
-          <div
-            className={`grid grid-cols-3 sm:grid-cols-3 ${
-              key === fuelStationDet.length - 1
-                ? ''
-                : 'border-b border-stroke dark:border-strokedark'
-            }`}
-            key={key}
-          >
-            <div className="flex items-center gap-3 p-2.5 xl:p-5">
-              <p className="hidden text-black dark:text-white sm:block">
-                {brand.name}
-              </p>
-            </div>
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.totalOrders||'50'}</p>
-            </div>
+        {fuelStationDet.map(
+          (
+            brand: {
+              name:
+                | string
+                | number
+                | boolean
+                | ReactElement<any, string | JSXElementConstructor<any>>
+                | Iterable<ReactNode>
+                | ReactPortal
+                | null
+                | undefined;
+              totalOrders: any;
+              amount: string | number | bigint;
+            },
+            key: Key | null | undefined
+          ) => (
+            <div
+              className={`grid grid-cols-3 sm:grid-cols-3 ${
+                key === fuelStationDet.length - 1 ? '' : 'border-b border-stroke dark:border-strokedark'
+              }`}
+              key={key}
+            >
+              <div className="flex items-center gap-3 p-2.5 xl:p-5">
+                <p className="hidden text-black dark:text-white sm:block">{brand.name}</p>
+              </div>
+              <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                <p className="text-black dark:text-white">{brand.totalOrders || '50'}</p>
+              </div>
 
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">{new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'GHS' }).format(brand.amount)||'j'}</p>
+              <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+                <p className="text-meta-5">
+                  {new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'GHS' }).format(brand.amount) || 'j'}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     </div>
   );

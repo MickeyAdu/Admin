@@ -66,8 +66,8 @@ const Profile: React.FC  = () => {
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
           <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
-            <div className="relative drop-shadow-2 overflow-hidden rounded-full ">
-              <img src={user?.profileImage||userSix} alt="profile" className="object-cover object-center" />
+            <div className="relative drop-shadow h-[160px] w-[160px] rounded-full contain overflow-hidden ">
+              <img src={user?.profileImage||userSix} alt="profile" className="object-cover object-center " />
               <label
                 htmlFor="profile"
                 className="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
@@ -117,7 +117,7 @@ const Profile: React.FC  = () => {
                 `${user?.['first_name']} ${user?.['last_name']}`
               }
             </h3>
-            <p className="font-medium">Ui/Ux Designer</p>
+            <p className="font-bold">{`${user?.['role']}`}</p>
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
