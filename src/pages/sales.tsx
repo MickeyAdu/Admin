@@ -159,66 +159,100 @@ const Sales: React.FC = () => {
         </div>
         
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-          <div className='max-w-full overflow-x-auto'>
-            <div className="w-full table-auto">
-              <div className='flex'>
-             <div className='mr-4'>
-              <select name="some" id="some" className='grid items-start text-xl font-bold outline-none rounded-sm bg-transparent text-white' onChange={chooseFuelStationChange}>
-              <option value={fuelStation.totalFS} className='text-black' >Total Fuel Station </option>
-                  <option value={fuelStation.shellFS} className='text-black'>Shell Fuel Station </option>
-                  <option value={fuelStation.PetrosolFS} className='text-black'>Petrosol Fuel Station </option>
-                  <option value={fuelStation.goilFS} className='text-black'  selected={true}>Goil Fuel Station </option>              
-                  </select>
-             </div>
-             <div>
-             <select name="some" id="some" className='grid items-start text-xl font-bold outline-none rounded-sm bg-transparent text-white' onChange={chooseFuelTypeChange}>
-              <option value={fuelType.gas} className='text-black' selected={true}>Gasoline </option>
-                  <option value={fuelType.diesel} className='text-black'>Diesel</option>
-                  <option value={fuelType.petrol} className='text-black'>Petrol </option>
-                  </select>
-             </div>
-             <div>
-             <select name="some" id="some" className='grid items-start text-xl font-normal outline-none rounded-sm bg-transparent text-white' onChange={chooseFuelTypeChange}>
-              <option value={fuelType.gas} className='text-black' selected={true}>Teller 1 </option>
-                  <option value={fuelType.diesel} className='text-black'>Teller 2</option>
-                  <option value={fuelType.petrol} className='text-black'>Teller 3 </option>
-                  </select>
-             </div>
-              </div>
-       
-            <button 
-          className="mt-4 bg-blue-900 text-white font-bold py-2 px-4 rounded"
-          onClick={calculateTotalSales}
-        >
-          Show Sales
-        </button>
-        {salesData.length > 0 && (
-          <table className="min-w-full mt-4 mb-3 bg-white">
-            <thead>
-              <tr>
-                <th className="border px-4 py-2 text-black text-2xl font-bold">Teller ID</th>
-                <th className="border px-4 py-2 text-black text-2xl font-bold">Total Sales/Litres</th>
-                <th className="border px-4 py-2 text-black text-2xl font-bold">Departure Time</th>
-                <th className="border px-4 py-2 text-black text-2xl font-bold">Amount</th>
+  <div className="max-w-full overflow-x-auto">
+    <div className="w-full table-auto">
+      <div className="flex">
+        <div className="mr-4">
+          <select
+            name="some"
+            id="some"
+            className="grid items-start text-xl font-bold outline-none rounded-sm bg-transparent dark:text-white text-black"
+            onChange={chooseFuelStationChange}
+          >
+            <option value={fuelStation.totalFS} className="text-black dark:text-white">
+              Total Fuel Station
+            </option>
+            <option value={fuelStation.shellFS} className="text-black dark:text-white">
+              Shell Fuel Station
+            </option>
+            <option value={fuelStation.PetrosolFS} className="text-black dark:text-white">
+              Petrosol Fuel Station
+            </option>
+            <option value={fuelStation.goilFS} className="text-black dark:text-white" selected={true}>
+              Goil Fuel Station
+            </option>
+          </select>
+        </div>
+        <div>
+          <select
+            name="some"
+            id="some"
+            className="grid items-start text-xl font-bold outline-none rounded-sm bg-transparent dark:text-white text-black"
+            onChange={chooseFuelTypeChange}
+          >
+            <option value={fuelType.gas} className="text-black dark:text-white" selected={true}>
+              Gasoline
+            </option>
+            <option value={fuelType.diesel} className="text-black dark:text-white">
+              Diesel
+            </option>
+            <option value={fuelType.petrol} className="text-black dark:text-white">
+              Petrol
+            </option>
+          </select>
+        </div>
+        <div>
+          <select
+            name="some"
+            id="some"
+            className="grid items-start text-xl font-normal outline-none rounded-sm bg-transparent dark:text-white text-black"
+            onChange={chooseFuelTypeChange}
+          >
+            <option value={fuelType.gas} className="text-black dark:text-white" selected={true}>
+              Teller 1
+            </option>
+            <option value={fuelType.diesel} className="text-black dark:text-white">
+              Teller 2
+            </option>
+            <option value={fuelType.petrol} className="text-black dark:text-white">
+              Teller 3
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <button
+        className="mt-4 bg-blue-900 text-white font-bold py-2 px-4 rounded"
+        onClick={calculateTotalSales}
+      >
+        Show Sales
+      </button>
+      {salesData.length > 0 && (
+        <table className="min-w-full mt-4 mb-3 bg-white dark:bg-gray-800">
+          <thead>
+            <tr>
+              <th className="border px-4 py-2 dark:text-white text-black text-2xl font-bold">Teller ID</th>
+              <th className="border px-4 py-2 dark:text-white text-black text-2xl font-bold">Total Sales/Litres</th>
+              <th className="border px-4 py-2 dark:text-white text-black text-2xl font-bold">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {salesData.map((data, index) => (
+              <tr key={index}>
+                <td className="border px-4 py-2 dark:text-white text-black text-lg font-normal">{data.pumpId}</td>
+                <td className="border px-4 py-2 dark:text-white text-black text-lg font-normal">{quantity}</td>
+                <td className="border px-4 py-2 dark:text-white text-black text-lg font-normal">
+                  {new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'GHS' }).format(totalAmount)}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {salesData.map((data, index) => (
-                <tr key={index}>
-                  <td className="border px-4 py-2 text-black text-lg font-normal">{data.pumpId}</td>
-                  <td className="border px-4 py-2 text-black text-lg font-normal">{quantity}</td>
-                  <td className="border px-4 py-2 text-black text-lg font-normal">{totalProcessed}</td>
-                  <td className="border px-4 py-2 text-black text-lg font-normal">{new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'GHS' }).format(totalAmount)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-       
-        
-      </div>
-      </div>
-      </div>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  </div>
+</div>
+
 
       </div>
 
